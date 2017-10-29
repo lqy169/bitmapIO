@@ -5,7 +5,7 @@
 
 void bmpFile::openNew(int x, int y, int dpi, std::string file) {
 	// this function sets resolution variables for a new image object.
-	
+
 	image_x = x;
 	dibheader.biWidth = image_x;
 	image_y = y;
@@ -23,14 +23,13 @@ void bmpFile::openNew(int x, int y, int dpi, std::string file) {
 
 void bmpFile::openLoad(std::string file) {
 	// this function will load a image file to a new image object.
-	if(DEBUG_LEVEL >= 1) { std::cout << "#Opening File Stream::" << std::endl; }
 
 	std::ifstream input(file, std::ios::in|std::ios::binary);
 	this->erasePixelArray();
 	this->eraseDataArray();
 
 	if (input.fail()) {
-	    std::cout << "#ERROR!! Cannot open the file::" << std::endl;
+		throw std::logic_error("Error: file cannot be opened.");
 	    return;
 	}
 
@@ -64,7 +63,6 @@ void bmpFile::openLoad(std::string file) {
 	// Pixel Array Write
 	for(int y = 0; y <= image_y; y++) {
 		for(int x = 0; x < image_x; x++) {
-			if(DEBUG_LEVEL >= 2) { std::cout << "#Reading Pixel " << x << ' ' << y << "::" << std::endl; }
 			RGBQUAD tempPixel;
 			input.read(reinterpret_cast<char*>(&tempPixel.rgbBlue), 1);
 			input.read(reinterpret_cast<char*>(&tempPixel.rgbGreen), 1);
@@ -74,30 +72,26 @@ void bmpFile::openLoad(std::string file) {
 		for(int n = 0; n < (image_x % 4); n++) { // to ensure multipe of 4 requirement of bmp data
 			int extra;
 			input.read(reinterpret_cast<char*>(&extra), 1);
-			if(DEBUG_LEVEL >= 2) { std::cout << "#Ignoring Extra::" << std::endl; }
 		}
 	}
 
 	// Conclusion
 	input.close();
-	if(DEBUG_LEVEL >= 1) { std::cout << "#Closing Input Stream::" << std::endl; }
 	return;
 }
 
 void bmpFile::changeFile(std::string newFile) {
 	// This function changes the pointed file
-	if(DEBUG_LEVEL == 2) { std::cout << "#Changing file path::" << std::endl; }
 	fileName = newFile;
 	return;
 }
 
 std::string bmpFile::fileNameIs() {
 	// This function returns the pointed file
-	if(DEBUG_LEVEL == 2) { std::cout << "#Reading file path::" << std::endl; }
 	return fileName;
 }
 
 void bmpFile::convertColorIndex(int temp, RGBQUAD &tempPixel) {
-	std::cout << "I don't exist yet!";
+	printf("I don't exist yet!");
 	return;
 }

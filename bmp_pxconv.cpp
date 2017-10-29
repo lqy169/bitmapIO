@@ -25,8 +25,6 @@ void bmpFile::convertGreyScale(int temp, int scalefac, RGBQUAD &tempPixel) {
 void bmpFile::convertColorGradient(int temp, int scalefac, RGBQUAD &tempPixel) {
 	// this function converts the data point to a color value, based on a rotating RGB spectrum
 
-	if(DEBUG_LEVEL >= 2) { std::cout << "#Processing Color::" << std::endl; }
-
 	// RGB Color
 	double value = 0;
 	double valuecut = 256.0 / static_cast<double>(scalefac);

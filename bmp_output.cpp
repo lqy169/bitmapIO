@@ -5,8 +5,6 @@
 void bmpFile::BMPfinalize(std::string file) {
 	// this function should be called to finalize pixel data and write bmpfile
 
-	if(DEBUG_LEVEL >= 1) { std::cout << "#Beginning Finalization::" << std::endl; }
-
 	dibheader.biSizeImage = (image_x * 3 + image_x % 4) * image_y;
 	header.bfSize = dibheader.biSizeImage + 54;
 
@@ -22,7 +20,6 @@ void bmpFile::writeFile() {
 	// this function begins the writeout process of the class data
 
 	std::ofstream output;
-	if(DEBUG_LEVEL >= 1) { std::cout << "#Opening File::" << std::endl; }
 	output.open(fileName, std::ios::out | std::ios::binary);
 
 	//Writing BMP elements
@@ -60,6 +57,5 @@ void bmpFile::writeFile() {
 
 	// Conclusion
 	output.close();
-	if(DEBUG_LEVEL >= 1) { std::cout << "#Closing File::" << std::endl; }
 	return;
 }
